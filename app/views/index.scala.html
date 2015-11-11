@@ -1,7 +1,28 @@
-@(message: String)
+@(title: String)
 
-@main("Welcome to Play") {
+<!DOCTYPE html>
 
-    @play20.welcome(message, style = "Java")
+<html lang="en">
+<head>
+    <title>@title</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    </head>
+    <body>
+        <h2>プッシュ通知テスト</h2>
 
-}
+        <p id="change-text">
+            サーバーからpushが来るまでお待ち下さい。
+        </p>
+        <script>
+            var cometMessage = function(event) {
+              if(!event) return false;
+              var count = event.count;
+              if (count >= 1) {
+                var changeText = document.getElementById('change-text');
+                changeText.textContent = count + "回サーバーからpushが来ています。";
+              }
+            }
+        </script>
+        <iframe style="display: none;" src="/count"></iframe>
+</body>
+</html>
